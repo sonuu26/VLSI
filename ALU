@@ -1,0 +1,30 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use ieee.std_logic_unsigned.all;
+use IEEE.NUMERIC_STD.ALL;
+entity Pract1_ALU1 is
+Port ( a,b : in STD_LOGIC_VECTOR (3 downto 0);
+s : in STD_LOGIC_VECTOR (2 downto 0);
+clk, rst : in STD_LOGIC;
+y : out STD_LOGIC_VECTOR (5 downto 0));
+end Pract1_ALU1;
+architecture Behavioral of Pract1_ALU1 is
+begin
+process(a,b,s,clk,rst)
+begin
+if(rst='1')then
+y<="00000000";
+elsif(clk‘event and clk='1')then
+case s is
+when "000"=>y(3 downto 0)<= a+b;
+when "001"=>y(3 downto 0)<= a-b;
+when "010"=>y<= std_logic_vector((a)*(b));
+when "011"=> y(3 downto 0)<= a and b;
+when "100"=>y(3 downto 0)<= a nand b;
+when "101"=>y(3 downto 0)<= a or b;
+when "110"=>y(3 downto 0)<= a xor b;
+when others=>y(3 downto 0)<= a xnor b;
+end case;
+end if;
+end process;
+end Behavioral;
